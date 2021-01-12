@@ -1,0 +1,46 @@
+{% set name = "ipypandex" %}
+{% set version = "0.1.0" %}
+
+
+package:
+  name: {{ name|lower }}
+  version: {{ version }}
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/ipypandex-{{ version }}.tar.gz
+  sha256: ee02c622eb78b1ad30a4efeac9ca6ac474cdf4fee56aafd8fbf913cdcde49aac
+
+build:
+  number: 0
+  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv
+
+requirements:
+  host:
+    - ipython
+    - pip
+    - pandas
+    - python >=3.6
+  run:
+    - ipython
+    - pandas
+    - python >=3.6
+
+test:
+  commands:
+    - pytest $SRC_DIR/tests
+  requires:
+    - pip
+    - pytest
+
+about:
+  home: https://github.com/nteract/ipypandex
+  summary: A package for automatically turning on Data Explorer in Pandas for an IPython Jupyter kernel.
+  dev_url: https://github.com/nteract/ipypandex/
+  license: BSD-3-Clause
+  license_file: LICENSE
+
+extra:
+  recipe-maintainers:
+    - MSeal
+    - nicholaswold
